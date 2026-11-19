@@ -1,0 +1,279 @@
+.works-page {
+  position: relative;
+  min-height: 100svh;
+  padding: var(--page-padding);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-red);
+  color: var(--color-paper);
+}
+
+.works-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: calc(var(--space-unit) * 6);
+}
+
+.works-page__back-link {
+  font-family: var(--font-interface);
+  font-size: var(--nav-size);
+  font-weight: 500;
+  color: var(--color-paper);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--space-unit) * 1);
+  transition: opacity 150ms ease;
+  position: relative;
+}
+
+.works-page__back-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-paper);
+  transition: width 250ms ease, left 250ms ease;
+}
+
+.works-page__back-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.works-page__back-link:hover {
+  opacity: 0.9;
+}
+
+.works-page__content {
+  flex: 1;
+  max-width: 1080px;
+  width: 100%;
+  margin-inline: auto;
+  padding-block-end: calc(var(--space-unit) * 6);
+  animation: works-rise 500ms ease-out both;
+}
+
+.works-page__title-group {
+  margin-block-end: calc(var(--space-unit) * 6);
+}
+
+.works-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 400;
+  color: var(--color-ink);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  clip-path: inset(0 100% 0 0);
+  animation: title-reveal 600ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms both;
+}
+
+.works-page__tagline {
+  font-family: var(--font-display);
+  font-size: var(--role-size);
+  font-weight: 400;
+  color: var(--color-paper);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  margin-block-start: calc(var(--space-unit) * 1.5);
+}
+
+/* ── Project Showcase Card ── */
+.project-card {
+  border: 1px solid var(--color-paper);
+  background-color: transparent;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin-block-end: calc(var(--space-unit) * 4);
+  position: relative;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 500ms ease, transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.project-card:nth-child(even) {
+  transform: translateX(40px);
+}
+
+.project-card.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.project-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 1);
+  margin-block-end: calc(var(--space-unit) * 2.5);
+}
+
+.project-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--color-paper);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.project-card__subtitle {
+  font-family: var(--font-interface);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 600;
+  color: var(--color-blush);
+}
+
+.project-card__description {
+  font-family: var(--font-interface);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-paper);
+  max-width: 800px;
+  margin-block-end: calc(var(--space-unit) * 3);
+}
+
+/* ── Features List ── */
+.project-card__features {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 1.5);
+  margin-block-end: calc(var(--space-unit) * 4);
+  padding-inline-start: calc(var(--space-unit) * 2.5);
+  border-inline-start: 2px solid var(--color-paper);
+}
+
+.project-card__feature-item {
+  font-family: var(--font-interface);
+  font-size: 0.95rem;
+  color: var(--color-paper);
+  line-height: 1.4;
+}
+
+/* ── Tags ── */
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--space-unit) * 1.5);
+  margin-block-end: calc(var(--space-unit) * 4);
+}
+
+.project-card__tag {
+  font-family: var(--font-interface);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-paper);
+  padding: calc(var(--space-unit) * 0.5) calc(var(--space-unit) * 1.5);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: border-color 200ms ease, background-color 200ms ease, color 200ms ease;
+}
+
+.project-card__tag:hover {
+  border-color: var(--color-paper);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Actions ── */
+.project-card__actions {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space-unit) * 3);
+}
+
+.project-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--space-unit) * 1.5);
+  font-family: var(--font-interface);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  padding: calc(var(--space-unit) * 1.75) calc(var(--space-unit) * 3.5);
+  border: 1px solid var(--color-paper);
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  text-decoration: none;
+  transition: color 250ms ease, transform 150ms ease;
+}
+
+.project-card__btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.project-card__btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.project-card__btn:hover {
+  color: var(--color-paper);
+  transform: translateY(-1px);
+}
+
+.project-card__btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Animation ── */
+@keyframes works-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes title-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ── Responsive adjustments ── */
+@media (max-width: 639px) {
+  .works-page__header {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: calc(var(--space-unit) * 2);
+  }
+
+  .project-card {
+    padding: calc(var(--space-unit) * 2.5);
+    transform: translateY(20px);
+  }
+
+  .project-card:nth-child(even) {
+    transform: translateY(20px);
+  }
+
+  .project-card.is-visible {
+    transform: translateY(0);
+  }
+
+  .project-card__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .project-card__btn {
+    justify-content: center;
+  }
+}

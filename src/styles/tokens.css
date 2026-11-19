@@ -1,0 +1,23 @@
+:root {
+  /* Colors */
+  --color-red: #B31B1B;
+  --color-ink: #000000;
+  --color-paper: #FFFFFF;
+  --color-blush: #F2C9C9;
+  --color-red-deep: #7E1010;
+
+  /* Typography */
+  --font-display: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  --font-interface: 'Quicksand', system-ui, sans-serif;
+
+  /* Spacing */
+  --space-unit: 8px;
+  --page-padding: clamp(1.5rem, 4vw, 3rem);
+
+  /* Sizes */
+  --name-size: clamp(5rem, 13vw, 12rem);
+  --iam-size: clamp(2.75rem, 7.15vw, 6.6rem);
+  --role-size: clamp(1.25rem, 2.2vw, 2rem);
+  --nav-size: 1rem;
+  --stat-size: 1rem;
+}

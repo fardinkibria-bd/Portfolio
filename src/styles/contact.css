@@ -1,0 +1,205 @@
+/* Contact page — built on the works-page layout (header, title, content column) */
+.contact-page__intro {
+  font-family: var(--font-interface);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--color-paper);
+  max-width: 640px;
+  margin-block-start: calc(var(--space-unit) * 1.5);
+}
+
+.contact__form {
+  max-width: 720px;
+  margin-block-start: calc(var(--space-unit) * 4);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 3);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms ease, transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.contact__form.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--space-unit) * 3);
+}
+
+@media (max-width: 639px) {
+  .contact__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact__group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 1);
+}
+
+.contact__label {
+  font-family: var(--font-interface);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-paper);
+}
+
+.contact__optional {
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+.contact__field {
+  font-family: var(--font-interface);
+  font-size: 1rem;
+  color: var(--color-paper);
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: calc(var(--space-unit) * 1.5) calc(var(--space-unit) * 2);
+  border-radius: 0;
+  transition: border-color 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+  width: 100%;
+}
+
+.contact__field::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.contact__field:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.contact__field:focus {
+  outline: none;
+  border-color: var(--color-paper);
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+
+textarea.contact__field {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+.contact__field--invalid {
+  border-color: var(--color-blush);
+}
+
+.contact__error {
+  font-family: var(--font-interface);
+  font-size: 0.85rem;
+  color: var(--color-blush);
+}
+
+/* Honeypot: visually and programmatically hidden */
+.contact__honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.contact__submit {
+  align-self: flex-start;
+  font-family: var(--font-interface);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-paper);
+  padding: calc(var(--space-unit) * 1.75) calc(var(--space-unit) * 4);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  transition: color 250ms ease, opacity 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.contact__submit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.contact__submit:hover:not(:disabled)::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.contact__submit:hover:not(:disabled) {
+  color: var(--color-paper);
+  transform: translateY(-1px);
+}
+
+.contact__submit:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+.contact__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contact__status {
+  font-family: var(--font-interface);
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: calc(var(--space-unit) * 2.5);
+  margin-block-start: calc(var(--space-unit) * 4);
+  max-width: 720px;
+}
+
+.contact__status--success {
+  border: 1px solid var(--color-paper);
+}
+
+.contact__status--error {
+  border: 1px solid var(--color-blush);
+  color: var(--color-blush);
+}
+
+.contact__reset-btn {
+  font-family: var(--font-interface);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-paper);
+  position: relative;
+  margin-block-start: calc(var(--space-unit) * 2);
+  transition: opacity 150ms ease;
+}
+
+.contact__reset-btn::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-paper);
+  transition: width 250ms ease, left 250ms ease;
+}
+
+.contact__reset-btn:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.contact__reset-btn:hover {
+  opacity: 0.85;
+}
