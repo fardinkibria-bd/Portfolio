@@ -126,7 +126,7 @@
   letter-spacing: -0.01em;
   margin-block-end: calc(var(--space-unit) * 2.5);
   clip-path: inset(0 100% 0 0);
-  animation: title-reveal 600ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms both;
+  animation: title-reveal 700ms cubic-bezier(0.2, 0.8, 0.2, 0.4) both;
 }
 
 .about-hero__quote {
@@ -225,16 +225,45 @@
   transform: translateY(0);
 }
 
-.about-section.is-visible .about-chip:nth-child(1) { transition-delay: 50ms; }
-.about-section.is-visible .about-chip:nth-child(2) { transition-delay: 100ms; }
-.about-section.is-visible .about-chip:nth-child(3) { transition-delay: 150ms; }
-.about-section.is-visible .about-chip:nth-child(4) { transition-delay: 200ms; }
-.about-section.is-visible .about-chip:nth-child(5) { transition-delay: 250ms; }
-.about-section.is-visible .about-chip:nth-child(6) { transition-delay: 300ms; }
-.about-section.is-visible .about-chip:nth-child(7) { transition-delay: 350ms; }
-.about-section.is-visible .about-chip:nth-child(8) { transition-delay: 400ms; }
-.about-section.is-visible .about-chip:nth-child(9) { transition-delay: 450ms; }
-.about-section.is-visible .about-chip:nth-child(10) { transition-delay: 500ms; }
+.about-section.is-visible .about-chip:nth-child(1) {
+  transition-delay: 50ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(3) {
+  transition-delay: 150ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(4) {
+  transition-delay: 200ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(5) {
+  transition-delay: 250ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(6) {
+  transition-delay: 300ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(7) {
+  transition-delay: 350ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(8) {
+  transition-delay: 400ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(9) {
+  transition-delay: 450ms;
+}
+
+.about-section.is-visible .about-chip:nth-child(10) {
+  transition-delay: 500ms;
+}
 
 .about-chip:hover {
   background-color: var(--color-paper);
@@ -360,6 +389,7 @@
     opacity: 0;
     transform: translateY(14px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -370,6 +400,7 @@
   from {
     clip-path: inset(0 100% 0 0);
   }
+
   to {
     clip-path: inset(0 0 0 0);
   }
@@ -380,10 +411,12 @@
     opacity: 0;
     transform: scale(0.92) translateY(10px);
   }
+
   70% {
     opacity: 1;
     transform: scale(1.01) translateY(-2px);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
