@@ -8,7 +8,7 @@ Read `DESIGN.md` before making any visual change. It is the source of truth for 
 
 - **What it is:** a single-page portfolio hero. Red background, large black name, duotone illustrated portrait, white navigation, social rail, and a three-item stats strip.
 - **Audience:** potential clients and employers.
-- **Primary actions:** go to *My Works*, go to *Contact*.
+- **Primary actions:** go to _My Works_, go to _Contact_.
 - **Scope today:** the hero screen only. Sections behind the nav links (About, Profile, Contact, My Works) are not designed yet. Do not invent their designs without being asked. Ask first, or add a minimal placeholder that follows `DESIGN.md`.
 
 ## Stack
@@ -102,17 +102,20 @@ Use the copy in `DESIGN.md` section 8 exactly: nav (About, Profile, Contact, My 
 ## Boundaries
 
 **Always**
+
 - Read `DESIGN.md` first.
 - Keep changes small and focused on the task.
 - Update `DESIGN.md` in the same change if you intentionally alter a visual decision.
 
 **Ask first**
+
 - Adding a dependency.
 - Designing or building sections beyond the hero.
 - Changing the typefaces, palette, or portrait.
 - Adding analytics, forms, or any third-party script.
 
 **Never**
+
 - Commit secrets, API keys, or `.env` files.
 - Hot-link fonts or images from third-party hosts.
 - Add tracking or cookies without explicit approval.

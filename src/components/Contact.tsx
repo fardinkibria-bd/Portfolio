@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { content } from "../content";
 import { Nav } from "./Nav";
-import { useScrollReveal } from "../hooks/useScrollReveal";
 
 interface ContactProps {
   onNavigateHome: () => void;
@@ -35,9 +34,6 @@ export function Contact({ onNavigateHome, onNavigateSection }: ContactProps) {
   >({});
   const [status, setStatus] = useState<Status>("idle");
   const [serverError, setServerError] = useState<string>("");
-
-  const { ref: formRef, isVisible: isFormVisible } =
-    useScrollReveal<HTMLFormElement>();
 
   const setField = (field: keyof FormValues) => (value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -170,123 +166,125 @@ export function Contact({ onNavigateHome, onNavigateSection }: ContactProps) {
             </button>
           </div>
         ) : (
-          <form
-            ref={formRef}
-            className={`contact__form${isFormVisible ? " is-visible" : ""}`}
-            onSubmit={handleSubmit}
-            noValidate
-          >
-            {/* Honeypot: hidden from users, catches bots */}
-            <div className="contact__honeypot" aria-hidden="true">
-              <label htmlFor="contact-company">Company</label>
-              <input
-                id="contact-company"
-                type="text"
-                name="company"
-                tabIndex={-1}
-                autoComplete="off"
-                value={values.honeypot}
-                onChange={(e) => setField("honeypot")(e.target.value)}
-              />
-            </div>
-
-            <div className="contact__row">
-              <div className="contact__group">
-                <label className="contact__label" htmlFor="contact-email">
-                  Your email <span aria-hidden="true">*</span>
-                </label>
-                <input
-                  id="contact-email"
-                  className={inputClass("email")}
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  required
-                  placeholder="you@example.com"
-                  value={values.email}
-                  onChange={(e) => setField("email")(e.target.value)}
-                  aria-invalid={errors.email ? true : undefined}
-                  aria-describedby={
-                    errors.email ? "contact-email-error" : undefined
-                  }
-                />
-                {errors.email && (
-                  <p id="contact-email-error" className="contact__error">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-
-              <div className="contact__group">
-                <label className="contact__label" htmlFor="contact-subject">
-                  Subject <span className="contact__optional">(optional)</span>
-                </label>
-                <input
-                  id="contact-subject"
-                  className={inputClass("subject")}
-                  type="text"
-                  name="subject"
-                  maxLength={200}
-                  placeholder="What is this about?"
-                  value={values.subject}
-                  onChange={(e) => setField("subject")(e.target.value)}
-                  aria-invalid={errors.subject ? true : undefined}
-                  aria-describedby={
-                    errors.subject ? "contact-subject-error" : undefined
-                  }
-                />
-                {errors.subject && (
-                  <p id="contact-subject-error" className="contact__error">
-                    {errors.subject}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            <div className="contact__group">
-              <label className="contact__label" htmlFor="contact-message">
-                Your message <span aria-hidden="true">*</span>
-              </label>
-              <textarea
-                id="contact-message"
-                className={inputClass("message")}
-                name="message"
-                rows={7}
-                required
-                minLength={MESSAGE_MIN}
-                maxLength={MESSAGE_MAX}
-                placeholder="Tell me about your project, idea, or question..."
-                value={values.message}
-                onChange={(e) => setField("message")(e.target.value)}
-                aria-invalid={errors.message ? true : undefined}
-                aria-describedby={
-                  errors.message ? "contact-message-error" : undefined
-                }
-              />
-              {errors.message && (
-                <p id="contact-message-error" className="contact__error">
-                  {errors.message}
-                </p>
-              )}
-            </div>
-
-            {status === "error" && serverError && (
-              <div
-                className="contact__status contact__status--error"
-                role="alert"
-              >
-                {serverError}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              className="contact__submit"
-              disabled={status === "sending"}
+          <div className="contact__form-card">
+            <form
+              className="contact__form is-visible"
+              onSubmit={handleSubmit}
+              noValidate
             >
-              {status === "sending" ? "Sending…" : "Send message"}
-            </button>
-          </form>
+              {/* Honeypot: hidden from users, catches bots */}
+              <div className="contact__honeypot" aria-hidden="true">
+                <label htmlFor="contact-company">Company</label>
+                <input
+                  id="contact-company"
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={values.honeypot}
+                  onChange={(e) => setField("honeypot")(e.target.value)}
+                />
+              </div>
+
+              <div className="contact__row">
+                <div className="contact__group">
+                  <label className="contact__label" htmlFor="contact-email">
+                    Your email <span aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    id="contact-email"
+                    className={inputClass("email")}
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    placeholder="you@example.com"
+                    value={values.email}
+                    onChange={(e) => setField("email")(e.target.value)}
+                    aria-invalid={errors.email ? true : undefined}
+                    aria-describedby={
+                      errors.email ? "contact-email-error" : undefined
+                    }
+                  />
+                  {errors.email && (
+                    <p id="contact-email-error" className="contact__error">
+                      {errors.email}
+                    </p>
+                  )}
+                </div>
+
+                <div className="contact__group">
+                  <label className="contact__label" htmlFor="contact-subject">
+                    Subject{" "}
+                    <span className="contact__optional">(optional)</span>
+                  </label>
+                  <input
+                    id="contact-subject"
+                    className={inputClass("subject")}
+                    type="text"
+                    name="subject"
+                    maxLength={200}
+                    placeholder="What is this about?"
+                    value={values.subject}
+                    onChange={(e) => setField("subject")(e.target.value)}
+                    aria-invalid={errors.subject ? true : undefined}
+                    aria-describedby={
+                      errors.subject ? "contact-subject-error" : undefined
+                    }
+                  />
+                  {errors.subject && (
+                    <p id="contact-subject-error" className="contact__error">
+                      {errors.subject}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="contact__group">
+                <label className="contact__label" htmlFor="contact-message">
+                  Your message <span aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  id="contact-message"
+                  className={inputClass("message")}
+                  name="message"
+                  rows={7}
+                  required
+                  minLength={MESSAGE_MIN}
+                  maxLength={MESSAGE_MAX}
+                  placeholder="Tell me about your project, idea, or question..."
+                  value={values.message}
+                  onChange={(e) => setField("message")(e.target.value)}
+                  aria-invalid={errors.message ? true : undefined}
+                  aria-describedby={
+                    errors.message ? "contact-message-error" : undefined
+                  }
+                />
+                {errors.message && (
+                  <p id="contact-message-error" className="contact__error">
+                    {errors.message}
+                  </p>
+                )}
+              </div>
+
+              {status === "error" && serverError && (
+                <div
+                  className="contact__status contact__status--error"
+                  role="alert"
+                >
+                  {serverError}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="contact__submit"
+                disabled={status === "sending"}
+              >
+                {status === "sending" ? "Sending…" : "Send message"}
+              </button>
+            </form>
+          </div>
         )}
       </section>
     </main>

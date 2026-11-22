@@ -62,7 +62,7 @@ export function Placeholder({
             <a
               href="#my-works"
               style={{
-                color: "var(--color-paper)",
+                color: "var(--color-ink)",
                 textDecoration: "underline",
                 textUnderlineOffset: "0.3em",
               }}

@@ -1,28 +1,105 @@
+import { motion } from "framer-motion";
 import { content } from "../content";
+import { Stats } from "./Stats";
+import {
+  fadeInUp,
+  staggerContainer,
+  wordReveal,
+  springTransition,
+} from "../utils/animations";
 
-export function Headline() {
-  const nameChars = Array.from(content.headline.name);
+interface HeadlineProps {
+  onNavigate?: (section: string) => void;
+}
+
+export function Headline({ onNavigate }: HeadlineProps) {
+  // Split headline words for staggered animation
+  const prefixWords = content.headline.prefix.split(" ");
+  const nameWords = content.headline.name.split(" ");
 
   return (
-    <div className="content">
-      <div className="headline">
-        <h1>
-          <span className="headline__iam">{content.headline.prefix}</span>
-          <span className="headline__name" aria-label={content.headline.name}>
-            {nameChars.map((char, index) => (
-              <span
-                key={`${char}-${index}`}
-                className="headline__letter"
-                style={{ animationDelay: `${400 + index * 40}ms` }}
-                aria-hidden="true"
+    <div className="hero-content">
+      <motion.div
+        className="hero-content__inner"
+        initial="initial"
+        animate="animate"
+        variants={staggerContainer}
+      >
+        {/* Two-tone serif headline with staggered word reveal */}
+        <h1 className="hero-h1">
+          <motion.span
+            className="hero-h1__line hero-h1__line--dark"
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+          >
+            {prefixWords.map((word, i) => (
+              <motion.span
+                key={i}
+                variants={wordReveal}
+                style={{ display: "inline-block", marginRight: "0.25em" }}
               >
-                {char === " " ? "\u00A0" : char}
-              </span>
+                {word}
+              </motion.span>
             ))}
-          </span>
+          </motion.span>
+          <motion.span
+            className="hero-h1__line hero-h1__line--soft"
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+          >
+            {nameWords.map((word, i) => (
+              <motion.span
+                key={i}
+                variants={wordReveal}
+                style={{ display: "inline-block", marginRight: "0.25em" }}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </motion.span>
         </h1>
-        <p className="headline__role">{content.role}</p>
-      </div>
+
+        {/* Short intro paragraph (max-width ~440px) */}
+        <motion.p className="hero-intro" variants={fadeInUp}>
+          {content.intro}
+        </motion.p>
+
+        {/* Action buttons with hover animations */}
+        <motion.div className="hero-actions" variants={fadeInUp}>
+          <motion.a
+            href={content.heroCta.primary.href}
+            className="btn btn--primary"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate?.("my-works");
+            }}
+            whileHover={{ y: -2 }}
+            whileTap={{ y: 1 }}
+            transition={springTransition}
+          >
+            {content.heroCta.primary.label}
+          </motion.a>
+          <motion.a
+            href={content.heroCta.secondary.href}
+            className="btn btn--secondary"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate?.("contact");
+            }}
+            whileTap={{ y: 1 }}
+            transition={springTransition}
+          >
+            {content.heroCta.secondary.label}
+          </motion.a>
+        </motion.div>
+
+        {/* Stats strip */}
+        <motion.div variants={fadeInUp}>
+          <Stats />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

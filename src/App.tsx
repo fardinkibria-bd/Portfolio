@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Nav } from "./components/Nav";
-import { SocialRail } from "./components/SocialRail";
 import { Headline } from "./components/Headline";
-import { Stats } from "./components/Stats";
 import { Portrait } from "./components/Portrait";
+import { LogoMarquee } from "./components/LogoMarquee";
+import { SocialRail } from "./components/SocialRail";
 import { Works } from "./components/Works";
 import { About } from "./components/About";
+import { Achievements } from "./components/Achievements";
 import { Contact } from "./components/Contact";
 import { Placeholder } from "./components/Placeholder";
+import { fadeIn } from "./utils/animations";
 
 function normalizeHash(hash: string): string {
   return hash.replace(/^#\/?/, "").toLowerCase().trim();
@@ -24,7 +27,6 @@ function formatTitle(slug: string): string {
 export function App() {
   const [route, setRoute] = useState(() => normalizeHash(window.location.hash));
   const [displayRoute, setDisplayRoute] = useState(route);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -47,10 +49,8 @@ export function App() {
       return;
     }
 
-    setIsTransitioning(true);
     const timer = window.setTimeout(() => {
       setDisplayRoute(route);
-      setIsTransitioning(false);
       window.scrollTo(0, 0);
     }, 180);
 
@@ -86,17 +86,16 @@ export function App() {
       );
     }
 
-    if (displayRoute === "profile") {
+    if (displayRoute === "achievements" || displayRoute === "profile") {
       return (
-        <Placeholder
-          title="Profile"
+        <Achievements
           onNavigateHome={navigateHome}
           onNavigateSection={navigateTo}
         />
       );
     }
 
-    // Any other page that is under construction or not yet built
+    // Any other page that is under construction
     if (displayRoute !== "") {
       return (
         <Placeholder
@@ -107,24 +106,38 @@ export function App() {
       );
     }
 
+    // Default: Home Hero Screen
     return (
-      <main className="hero">
-        <Nav activeSection="" onNavigate={navigateTo} />
+      <div className="home-layout">
+        <Nav
+          activeSection=""
+          onNavigate={navigateTo}
+          onNavigateHome={navigateHome}
+        />
+        <main className="hero-section">
+          <div className="hero-panel">
+            <Headline onNavigate={navigateTo} />
+            <Portrait />
+          </div>
+          <LogoMarquee />
+        </main>
         <SocialRail />
-        <Headline />
-        <Portrait />
-        <Stats />
-      </main>
+      </div>
     );
   };
 
   return (
-    <div
-      className={`page-transition ${
-        isTransitioning ? "page-transition--out" : "page-transition--in"
-      }`}
-    >
-      {renderContent()}
-    </div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={displayRoute}
+        initial="initial"
+        animate="animate"
+        exit="initial"
+        variants={fadeIn}
+        className="page-wrapper"
+      >
+        {renderContent()}
+      </motion.div>
+    </AnimatePresence>
   );
 }

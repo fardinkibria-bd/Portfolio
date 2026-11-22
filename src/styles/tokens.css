@@ -1,23 +1,42 @@
 :root {
   /* Colors */
-  --color-red: #B31B1B;
-  --color-ink: #000000;
-  --color-paper: #FFFFFF;
-  --color-blush: #F2C9C9;
-  --color-red-deep: #7E1010;
+  --color-page: #F6F6F8;
+  --color-panel: #EDEDF0;
+  --color-panel-deep: #D8D9DD;
+  --color-ink: #111114;
+  --color-ink-soft: #7D7E85;
+  --color-text: #5A5C63;
+  --color-border: #DCDCE1;
+  --color-btn-dark: #18181B;
+  --color-btn-dark-text: #FFFFFF;
+  --color-btn-light: #F7F7F9;
+  --color-glass: rgba(36, 36, 36, 0.45);
+  --color-glass-border: rgba(255, 255, 255, 0.28);
+  --color-on-glass: #FFFFFF;
+  --color-on-glass-muted: rgba(255, 255, 255, 0.62);
 
   /* Typography */
-  --font-display: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
-  --font-interface: 'Quicksand', system-ui, sans-serif;
+  --font-display: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-interface: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Spacing */
   --space-unit: 8px;
-  --page-padding: clamp(1.5rem, 4vw, 3rem);
+  --page-max-width: 1180px;
+  --page-padding: clamp(16px, 9vw, 130px);
 
-  /* Sizes */
-  --name-size: clamp(5rem, 13vw, 12rem);
-  --iam-size: clamp(2.75rem, 7.15vw, 6.6rem);
-  --role-size: clamp(1.25rem, 2.2vw, 2rem);
-  --nav-size: 1rem;
-  --stat-size: 1rem;
+  /* Radii */
+  --radius-panel: 32px;
+  --radius-card: 24px;
+  --radius-glass: 20px;
+  --radius-btn: 10px;
+  --radius-badge: 999px;
+
+  /* Shadows */
+  --shadow-btn-dark: 0 6px 16px rgba(17, 17, 20, 0.22);
+  --shadow-btn-dark-inset: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --shadow-nav-cta: 0 4px 12px rgba(17, 17, 20, 0.18);
+
+  /* Backwards-compatibility aliases */
+  --color-paper: var(--color-page);
+  --nav-size: 14px;
 }

@@ -10,12 +10,13 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  background-color: var(--color-page);
 }
 
 body {
   font-family: var(--font-interface);
-  background-color: var(--color-red);
-  color: var(--color-paper);
+  background-color: var(--color-page);
+  color: var(--color-ink);
   overflow-x: clip;
   min-height: 100svh;
   -webkit-font-smoothing: antialiased;
@@ -45,15 +46,17 @@ button {
   font: inherit;
 }
 
-/* Focus styles */
+/* Focus styles: DESIGN.md section 5:
+   Focus-visible (all interactive elements): outline: 2px solid #111114; outline-offset: 3px. Never remove focus rings. */
 :focus-visible {
-  outline: 2px solid var(--color-paper);
-  outline-offset: 4px;
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
 }
 
 /* Page transitions */
 .page-transition {
   min-height: 100svh;
+  background-color: var(--color-page);
 }
 
 .page-transition--in {

@@ -1,0 +1,215 @@
+/* ═════════════════════════════════════════════════════════════════════
+   ACHIEVEMENTS PAGE STYLES (According to DESIGN.md Section 8)
+   Page frame, header and title reuse the .works-page rules.
+   ═════════════════════════════════════════════════════════════════════ */
+
+.achievements-page__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-block-end: 28px;
+}
+
+.achievements-page__count {
+  font-family: var(--font-interface);
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.achievements__card {
+  background-color: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  transition: border-color 150ms ease;
+}
+
+/* ── Achievement cards: text left, certificate thumbnail right ── */
+.achievements__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 24px;
+}
+
+.achievements__card {
+  display: grid;
+  grid-template-columns:  minmax(0, 100%);
+  overflow: hidden;
+}
+
+@media (max-width: 639px) {
+  .achievements__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .achievements__certificate-btn {
+    border-top: 1px solid var(--color-border);
+    border-bottom: none;
+  }
+}
+
+.achievements__card:hover {
+  border-color: #BDBEC4;
+}
+
+.achievements__certificate-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border-bottom: 1px solid var(--color-border);
+  background-color: #FFFFFF;
+  cursor: zoom-in;
+}
+
+.achievements__certificate {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background-color: #FFFFFF;
+}
+
+.achievements__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  padding: 20px;
+}
+
+.achievements__card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+.achievements__card-meta {
+  font-family: var(--font-interface);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  overflow-wrap: anywhere;
+}
+
+.achievements__card-description {
+  font-family: var(--font-interface);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-block-start: 4px;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.achievements__card-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-block-start: auto;
+  padding-block-start: 16px;
+}
+
+.achievements__card-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-interface);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: opacity 150ms ease;
+}
+
+.achievements__card-link:hover {
+  opacity: 0.6;
+}
+
+
+
+/* ── Notice ── */
+.achievements__notice {
+  font-family: var(--font-interface);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-ink);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-block-end: 20px;
+}
+
+/* ── Certificate lightbox ── */
+.achievements__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background-color: rgba(17, 17, 20, 0.82);
+}
+
+.achievements__lightbox-inner {
+  position: relative;
+  width: min(100%, 900px);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.achievements__lightbox-img {
+  width: 100%;
+  max-height: calc(100svh - 140px);
+  object-fit: contain;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+}
+
+.achievements__lightbox-caption {
+  font-family: var(--font-interface);
+  font-size: 14px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.achievements__lightbox-close {
+  position: absolute;
+  top: -12px;
+  inset-inline-end: -12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-badge);
+  background-color: #FFFFFF;
+  color: var(--color-ink);
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ── Responsive ── */
+@media (max-width: 639px) {
+  .achievements__lightbox-close {
+    top: 8px;
+    inset-inline-end: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .achievements__card,
+  .achievements__card-link {
+    transition: none;
+  }
+}

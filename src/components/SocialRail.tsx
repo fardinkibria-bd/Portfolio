@@ -53,29 +53,34 @@ const icons: Record<string, () => JSX.Element> = {
 
 export function SocialRail() {
   return (
-    <aside className="social" aria-label="Social links">
-      <ul className="social__list">
-        {content.social.map((item, index) => {
-          const Icon = icons[item.name];
-          return (
-            <li
-              key={item.name}
-              className="social__item"
-              style={{ animationDelay: `${1000 + index * 80}ms` }}
-            >
-              <a
-                className="social__link"
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={item.name}
-              >
-                {Icon ? <Icon /> : null}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </aside>
+    <footer className="hero-footer" aria-label="Footer and social channels">
+      <div className="hero-footer__inner">
+        <p className="hero-footer__copy">
+          © {new Date().getFullYear()} {content.brand.name}. All rights
+          reserved.
+        </p>
+
+        <ul className="social__list" aria-label="Social channels">
+          {content.social.map((item) => {
+            const Icon = icons[item.name];
+            const slug = item.name.toLowerCase();
+            return (
+              <li key={item.name} className="social__item">
+                <a
+                  className={`social__link social__link--${slug}`}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${item.name} (opens in a new tab)`}
+                >
+                  {Icon ? <Icon /> : null}
+                  <span className="social__name">{item.name}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </footer>
   );
 }

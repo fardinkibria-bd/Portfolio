@@ -1,6 +1,12 @@
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { content } from "../content";
 import { Nav } from "./Nav";
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import {
+  fadeInUp,
+  staggerContainer,
+  springTransition,
+} from "../utils/animations";
 
 interface AboutProps {
   onNavigateHome: () => void;
@@ -14,13 +20,17 @@ interface AboutArticleProps {
 }
 
 function AboutArticle({ id, title, children }: AboutArticleProps) {
-  const { ref, isVisible } = useScrollReveal<HTMLElement>();
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
-    <article
+    <motion.article
       ref={ref}
-      className={`about-section reveal-item${isVisible ? " is-visible" : ""}`}
+      className="about-section"
       aria-labelledby={id}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
     >
       <header className="about-section__header">
         <h2 id={id} className="about-section__title">
@@ -28,7 +38,7 @@ function AboutArticle({ id, title, children }: AboutArticleProps) {
         </h2>
       </header>
       {children}
-    </article>
+    </motion.article>
   );
 }
 
@@ -45,13 +55,17 @@ function AboutCta({
   contactLabel: string;
   onNavigateSection: (section: string) => void;
 }) {
-  const { ref, isVisible } = useScrollReveal<HTMLElement>();
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
-    <section
+    <motion.section
       ref={ref}
-      className={`about-cta reveal-item${isVisible ? " is-visible" : ""}`}
+      className="about-cta"
       aria-labelledby="about-cta-title"
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
     >
       <h2 id="about-cta-title" className="about-cta__title">
         Let&apos;s Connect
@@ -61,16 +75,19 @@ function AboutCta({
         opportunities.
       </p>
       <div className="about-cta__actions">
-        <a
+        <motion.a
           href={worksHref}
-          className="about-cta__btn-primary"
+          className="btn btn--primary about-cta__btn-primary"
           onClick={(e) => {
             e.preventDefault();
             onNavigateSection("my-works");
           }}
+          whileHover={{ y: -2 }}
+          whileTap={{ y: 1 }}
+          transition={springTransition}
         >
           <span>{worksLabel}</span>
-          <svg
+          <motion.svg
             width="18"
             height="18"
             viewBox="0 0 24 24"
@@ -80,19 +97,24 @@ function AboutCta({
             strokeLinecap="round"
             strokeLinejoin="round"
             aria-hidden="true"
+            whileHover={{ x: 3 }}
+            transition={springTransition}
           >
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 5" />
-          </svg>
-        </a>
+          </motion.svg>
+        </motion.a>
 
-        <a
+        <motion.a
           href={contactHref}
-          className="about-cta__btn-secondary"
+          className="btn btn--secondary about-cta__btn-secondary"
           onClick={(e) => {
             e.preventDefault();
             onNavigateSection("contact");
           }}
+          whileHover={{ y: -2 }}
+          whileTap={{ y: 1 }}
+          transition={springTransition}
         >
           <span>{contactLabel}</span>
           <svg
@@ -109,9 +131,9 @@ function AboutCta({
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
             <polyline points="22,6 12,13 2,6" />
           </svg>
-        </a>
+        </motion.a>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -156,78 +178,108 @@ export function About({ onNavigateHome, onNavigateSection }: AboutProps) {
         <Nav activeSection="about" onNavigate={onNavigateSection} />
       </div>
 
-      {/* ── Portrait Left Side ── */}
-      <div className="portrait" aria-hidden="true">
-        <img
-          className="portrait__image"
-          src={about.portrait.src}
-          alt={about.portrait.alt}
-          width={about.portrait.width}
-          height={about.portrait.height}
-        />
-      </div>
-
-      {/* ── Content Column (Right Side) ── */}
-      <div className="about-page__content">
-        {/* Intro Section */}
-        <section className="about-hero" aria-labelledby="about-name">
-          <span className="about-hero__kicker">About</span>
-          <h1 id="about-name" className="about-hero__name">
-            {about.fullName}
-          </h1>
-
-          {about.quote && (
-            <blockquote className="about-hero__quote">
-              <p className="about-hero__quote-text">“{about.quote}”</p>
-            </blockquote>
-          )}
-
-          <p className="about-hero__intro">{about.introduction}</p>
-        </section>
-
-        {/* Distinct Structured Sections */}
-        <div className="about-sections">
-          {/* Background */}
-          <AboutArticle id="section-background" title="Background">
-            <p className="about-section__body">{about.background}</p>
-          </AboutArticle>
-
-          {/* Skills */}
-          <AboutArticle id="section-skills" title="Skills">
-            <ul className="about-chips" aria-label="Skills list">
-              {skillsList.map((skill, index) => (
-                <li key={index} className="about-chip">
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </AboutArticle>
-
-          {/* Interests */}
-          <AboutArticle id="section-interests" title="Interests">
-            <ul className="about-chips" aria-label="Interests list">
-              {interestsList.map((interest, index) => (
-                <li key={index} className="about-chip">
-                  {interest}
-                </li>
-              ))}
-            </ul>
-          </AboutArticle>
-
-          {/* Goals */}
-          <AboutArticle id="section-goals" title="Goals">
-            <p className="about-section__body">{about.goals}</p>
-          </AboutArticle>
+      <div className="about-page__main">
+        {/* ── Portrait Left Side ── */}
+        <div className="about-page__portrait-col">
+          <div className="about-page__portrait-card">
+            <img
+              className="about-page__portrait-img"
+              src={about.portrait.src}
+              alt={about.portrait.alt}
+              width={about.portrait.width}
+              height={about.portrait.height}
+            />
+          </div>
         </div>
 
-        {/* Call To Action */}
-        <AboutCta
-          worksHref={about.cta.worksHref}
-          worksLabel={about.cta.worksLabel}
-          contactHref={about.cta.contactHref}
-          contactLabel={about.cta.contactLabel}
-          onNavigateSection={onNavigateSection}
-        />
+        {/* ── Content Column (Right Side) ── */}
+        <div className="about-page__content">
+          {/* Intro Section */}
+          <section className="about-hero" aria-labelledby="about-name">
+            <span className="about-hero__kicker">About</span>
+            <h1 id="about-name" className="about-hero__name">
+              {about.fullName}
+            </h1>
+
+            {about.quote && (
+              <blockquote className="about-hero__quote">
+                <p className="about-hero__quote-text">“{about.quote}”</p>
+              </blockquote>
+            )}
+
+            <p className="about-hero__intro">{about.introduction}</p>
+          </section>
+
+          {/* Distinct Structured Sections */}
+          <div className="about-sections">
+            {/* Background */}
+            <AboutArticle id="section-background" title="Background">
+              <p className="about-section__body">{about.background}</p>
+            </AboutArticle>
+
+            {/* Skills */}
+            <AboutArticle id="section-skills" title="Skills">
+              <motion.ul
+                className="about-chips"
+                aria-label="Skills list"
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, margin: "-15%" }}
+                variants={staggerContainer}
+              >
+                {skillsList.map((skill, index) => (
+                  <motion.li
+                    key={index}
+                    className="about-chip"
+                    variants={fadeInUp}
+                    whileHover={{ scale: 1.05 }}
+                    transition={springTransition}
+                  >
+                    {skill}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </AboutArticle>
+
+            {/* Interests */}
+            <AboutArticle id="section-interests" title="Interests">
+              <motion.ul
+                className="about-chips"
+                aria-label="Interests list"
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, margin: "-15%" }}
+                variants={staggerContainer}
+              >
+                {interestsList.map((interest, index) => (
+                  <motion.li
+                    key={index}
+                    className="about-chip"
+                    variants={fadeInUp}
+                    whileHover={{ scale: 1.05 }}
+                    transition={springTransition}
+                  >
+                    {interest}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </AboutArticle>
+
+            {/* Goals */}
+            <AboutArticle id="section-goals" title="Goals">
+              <p className="about-section__body">{about.goals}</p>
+            </AboutArticle>
+          </div>
+
+          {/* Call To Action */}
+          <AboutCta
+            worksHref={about.cta.worksHref}
+            worksLabel={about.cta.worksLabel}
+            contactHref={about.cta.contactHref}
+            contactLabel={about.cta.contactLabel}
+            onNavigateSection={onNavigateSection}
+          />
+        </div>
       </div>
     </main>
   );
