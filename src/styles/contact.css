@@ -124,33 +124,63 @@ textarea.contact__field {
   border: 0;
 }
 
-/* ── Submit button (Section 5 primary dark button) ── */
+/* ── Submit button (animated dark button, site palette only) ── */
 .contact__submit {
   align-self: flex-start;
-  display: inline-flex;
+  position: relative;
+  overflow: hidden;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  height: 44px;
-  padding-inline: 28px;
+  height: 48px;
+  padding: 0 1.4em 0 4.2em;
   font-family: var(--font-interface);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  line-height: 1;
+  letter-spacing: 0.02em;
   color: var(--color-btn-dark-text);
   background-color: var(--color-btn-dark);
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
   box-shadow: var(--shadow-btn-dark), var(--shadow-btn-dark-inset);
-  transition: background-color 150ms ease, opacity 150ms ease, transform 150ms ease;
+  transition:
+    background-color 150ms ease,
+    opacity 150ms ease;
 }
 
-.contact__submit:hover:not(:disabled) {
-  background-color: #2A2A2F;
+.contact__submit-icon {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 7px);
+  width: 2.75em;
+  /* ≈ 40px at font-size 15px, i.e. the square resting size — explicit width so the hover expansion animates */
+  border-radius: 7px;
+  background-color: var(--color-btn-dark-text);
+  color: var(--color-btn-dark);
+  transition: width 300ms ease;
+}
+
+.contact__submit-icon svg {
+  height: 24px;
+  width: 24px;
+  transition: transform 300ms ease;
+}
+
+.contact__submit:hover:not(:disabled) .contact__submit-icon {
+  width: calc(100% - 8px);
 }
 
 .contact__submit:active:not(:disabled) {
   transform: translateY(1px);
+}
+
+.contact__submit:active:not(:disabled) .contact__submit-icon {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .contact__submit:disabled {

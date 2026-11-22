@@ -281,7 +281,24 @@ export function Contact({ onNavigateHome, onNavigateSection }: ContactProps) {
                 className="contact__submit"
                 disabled={status === "sending"}
               >
-                {status === "sending" ? "Sending…" : "Send message"}
+                <span className="contact__submit-label">
+                  {status === "sending" ? "Sending…" : "Send message"}
+                </span>
+                <span className="contact__submit-icon" aria-hidden="true">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M2 8h11" />
+                    <path d="M9 4l4 4-4 4" />
+                  </svg>
+                </span>
               </button>
             </form>
           </div>
