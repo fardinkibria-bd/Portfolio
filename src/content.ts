@@ -139,8 +139,7 @@ export const content = {
       {
         id: "achievement-placeholder",
         title: "Bangladesh Math Olympiad 2024",
-        // description:
-          // "A short description of the achievement goes here. Edit this in src/content.ts.",
+        description: "",
         image: "/certificates/BDMO-2024.png",
         imageWidth: 800,
         imageHeight: 600,
@@ -148,8 +147,7 @@ export const content = {
       {
         id: "achievement-placeholder",
         title: "Chemfusion Chemistry Olympiad 2025",
-        // description:
-          // "A short description of the achievement goes here. Edit this in src/content.ts.",
+        description: "",
         image: "/certificates/Chemfusion-2024.png",
         imageWidth: 800,
         imageHeight: 600,
@@ -157,8 +155,7 @@ export const content = {
       {
         id: "achievement-placeholder",
         title: "Hackathon Participation Certificate 2026",
-        // description:
-          // "A short description of the achievement goes here. Edit this in src/content.ts.",
+        description: "",
         image: "/certificates/ML-Empowerment.png",
         imageWidth: 800,
         imageHeight: 600,
@@ -166,8 +163,7 @@ export const content = {
       {
         id: "achievement-placeholder",
         title: "AI Course Certificate 2026",
-        // description:
-          // "A short description of the achievement goes here. Edit this in src/content.ts.",
+        description: "",
         image: "/certificates/ML-Empowerment-AI-Course.png",
         imageWidth: 800,
         imageHeight: 400,
